@@ -28,7 +28,7 @@ function App() {
         onFileLoaded={getdata}
         parserOptions={papaparseOptions}
       />
-      <p>and then open the console</p>
+      <p>and then open the console if you like.</p>
       
       <Treemap data={data} height={400} width={600} />
       

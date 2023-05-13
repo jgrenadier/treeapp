@@ -8,6 +8,9 @@ import Treemap from './Treemap';
 
 var resulting_data = {};
 
+//
+// keys used in output tree structure
+//
 const name_all = "name";
 const children_all = "children";
 const name_tree = "name";
@@ -15,11 +18,24 @@ const name_state = "name";
 const children_state = "children";
 const value_tree = "value";
 
+//
+// function to add data from a single tree to the output
+// tree structure in "mystates".  mystates is in a tree structure
+// format used the TreeMap in the D3 library.
+//
 function AddTree2(mystates, st, spec_c, spec_s, treetype) {
+
+  //
+  // some states input from the CSV file seem to be null.
+  // so ignore them.
+  //
   if (st === null){
     return false;
   }
 
+  //
+  // treedict is the format of the leaf nodes in the output
+  // tree structure
   var treedict = {
     "category": st,
     "name": spec_c,
@@ -28,12 +44,18 @@ function AddTree2(mystates, st, spec_c, spec_s, treetype) {
     "value" : 1
   };
 
+  //
+  // statedict is the output format of the state nodes whose children
+  // are trees.
+  // 
   var statedict = {
     namestate: st,
     childrenstate: []
   }
 
   if (mystates.length === 0){
+    //
+    // only get here if there are no states yet in the output mystates.
     mystates.push([]);
     (mystates[0])[name_state] = st;
     (mystates[0])[children_state] = [];
@@ -43,6 +65,11 @@ function AddTree2(mystates, st, spec_c, spec_s, treetype) {
     return true;
   }
   const n = mystates.length;
+  //
+  // lets iterate through the output so far to see if the
+  // if the tree being added is from a state that has already
+  // been added to the output
+  //
   for (var i=0; i < n; i++) {
     var sti = (mystates[i])[name_state];
     if (sti != null){
@@ -57,6 +84,10 @@ function AddTree2(mystates, st, spec_c, spec_s, treetype) {
           //
           mystates[i][children_state] = [];
           var treedict3 = [];
+          //
+          // note: not sure of "Object.assign" is needed 
+          // given the vagaries of pass by reference/value in javascript
+          // but this cant hurt.
           Object.assign(treedict3, treedict);
           mystates[i][children_state].push(treedict3);
           return true;
@@ -124,6 +155,17 @@ const getdata = (data, fileInfo) => {
   // console.log(sessionStorage["all"]);
 
   // <Treemap data={data} height={400} width={600} />
+
+  // Note: following code rerenders the window with just the
+  // new TreeMap displayed with the data from the user selected
+  // CSV file.
+  // Note: this might not be the most elegant place 
+  // for this code but saving the output tree structure in 
+  // int things like session storage doesnt work for me yet.
+  // JSON.stringify() seems to have some problems with my 
+  // output data that will be needed by TreeMap. So having
+  // the redisplay in a different page doesnt work yet.
+  //
   const root = ReactDOM.createRoot(document.getElementById('root'));
   root.render(
     <React.StrictMode>
