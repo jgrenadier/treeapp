@@ -1,15 +1,15 @@
 {
-  "main.css": "/treeapp/static/css/main.ade9f159.chunk.css",
-  "main.js": "/treeapp/static/js/main.d46d79be.chunk.js",
-  "main.js.map": "/treeapp/static/js/main.d46d79be.chunk.js.map",
-  "static/js/1.bd78a533.chunk.js": "/treeapp/static/js/1.bd78a533.chunk.js",
-  "static/js/1.bd78a533.chunk.js.map": "/treeapp/static/js/1.bd78a533.chunk.js.map",
-  "static/js/2.3aed2b72.chunk.js": "/treeapp/static/js/2.3aed2b72.chunk.js",
-  "static/js/2.3aed2b72.chunk.js.map": "/treeapp/static/js/2.3aed2b72.chunk.js.map",
-  "runtime~main.js": "/treeapp/static/js/runtime~main.0ef6fc8b.js",
-  "runtime~main.js.map": "/treeapp/static/js/runtime~main.0ef6fc8b.js.map",
-  "static/css/main.ade9f159.chunk.css.map": "/treeapp/static/css/main.ade9f159.chunk.css.map",
-  "index.html": "/treeapp/index.html",
-  "precache-manifest.59490cfcf8daa5aed474b6799591c3fc.js": "/treeapp/precache-manifest.59490cfcf8daa5aed474b6799591c3fc.js",
-  "service-worker.js": "/treeapp/service-worker.js"
+  "files": {
+    "main.css": "/treeapp/static/css/main.b2637c28.css",
+    "main.js": "/treeapp/static/js/main.6e981a8d.js",
+    "static/js/787.619578fb.chunk.js": "/treeapp/static/js/787.619578fb.chunk.js",
+    "index.html": "/treeapp/index.html",
+    "main.b2637c28.css.map": "/treeapp/static/css/main.b2637c28.css.map",
+    "main.6e981a8d.js.map": "/treeapp/static/js/main.6e981a8d.js.map",
+    "787.619578fb.chunk.js.map": "/treeapp/static/js/787.619578fb.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.b2637c28.css",
+    "static/js/main.6e981a8d.js"
+  ]
 }
