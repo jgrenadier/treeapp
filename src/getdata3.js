@@ -5,6 +5,7 @@ import CSVReader from "react-csv-reader";
 // import { stash, unstash } from 'json-stash';
 import {Link} from 'react-router-dom';
 import Treemap from './Treemap';
+import TheContextMenu from './TheContextMenu';
 
 var resulting_data = {};
 
@@ -17,6 +18,16 @@ const name_tree = "name";
 const name_state = "name";
 const children_state = "children";
 const value_tree = "value";
+
+
+function dotest(key, e){
+  console.log(key, e)
+  document.getElementById("lblTreeKind").innerHTML = key;
+  re_getdata();
+  document.getElementById("lblTreeKind").innerHTML = key;
+
+  
+}
 
 //
 // function to add data from a single tree to the output
@@ -129,11 +140,64 @@ function AddTree2(mystates, st, spec_c, spec_s, treetype) {
   return true;
 }
 
+function filterByStates(data, mystatename){
+  var data2 = [];
+  if (st === null || st === "") {
+    return data;
+  }
+  for ( var i = 0; i < data.length; i++ ) {
+    var st = data[i].stateabbr;
+    if (st === mystatename)
+    {
+      var species_c = data[i].speciesnamecommon;
+      var species_s = data[i].speciesnamescientific;
+      var treetype = data[i].treetype;
+      data2.push(data[i]);
+    }
+  }
+  return data2;
+}
+
+function filterByTreeKind(data, mytreekind){
+  var data2 = [];
+ 
+  if (mytreekind === null || mytreekind === "") {
+    return data;
+  }
+  const mytreekindL = mytreekind.toLowerCase();
+  if (mytreekindL.startsWith("all")) {
+    return data;
+  }
+  for ( var i = 0; i < data.length; i++ ) {
+    var st = data[i].treetype;
+    if (st.toLowerCase() === mytreekindL)
+    {
+      var species_c = data[i].speciesnamecommon;
+      var species_s = data[i].speciesnamescientific;
+      var treetype = data[i].treetype;
+      data2.push(data[i]);
+    }
+  }
+  return data2;
+}
+
+var data_persisted = null;
+
+const re_getdata = () => {
+  if (data_persisted != null) {
+    getdata(data_persisted, null);
+  }
+}
 
 
 const getdata = (data, fileInfo) => {
   var ss = "";
+  data_persisted = data;
   // console.log(data, fileInfo);  
+
+  var TreeKind = document.getElementById("lblTreeKind").innerHTML;
+  data = filterByTreeKind(data, TreeKind);
+
   var mystates = [];
   for ( var i = 0; i < data.length; i++ ) {
     var st = data[i].stateabbr;
@@ -167,10 +231,28 @@ const getdata = (data, fileInfo) => {
   // the redisplay in a different page doesnt work yet.
   //
   const root = ReactDOM.createRoot(document.getElementById('root'));
-  root.render(
+  root.render(    
     <React.StrictMode>
-      <Treemap data={all} height={400} width={600} />
+      <div id='lblTreeKind' align='left' ></div>
+      <div id='customContextmenuArea1' >          
+            <TheContextMenu                         
+              targetId='customContextmenuArea1'
+              options={['Conifer', 'Broadleaf', 'All']}
+              classes={{
+                listWrapper: 'customContextmenuAreaTreeKindListWrapper',
+                listItem: 'customContextmenuAreaTreeKindListItem'
+              }}
+              dotest={dotest}              
+            />
+            <Treemap data={resulting_data} height={400} width={600} className="mytreemap" >             
+            </Treemap>       
+      </div>
+
+
     </React.StrictMode>
+
+
+
   );
 
 

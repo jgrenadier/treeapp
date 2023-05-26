@@ -1,7 +1,7 @@
 import React  from 'react';
 import { useRef, useEffect } from 'react';
 import * as d3 from 'd3';
-
+import { useState} from "react";
 export default function Treemap({ data, width, height }) {
   const svgRef = useRef(null);
   const fontSize = 12;
@@ -47,7 +47,11 @@ export default function Treemap({ data, width, height }) {
     });
   }
 
+  
+
   function renderTreemap() {
+
+    
 
     // +++++++++++++++++++++++++++++++++
     // cleanup nodes if left over from previous render
@@ -115,7 +119,7 @@ export default function Treemap({ data, width, height }) {
       (category, index, self) => self.indexOf(category) === index,
     );
 
-    legendContainer.attr('width', width).attr('height', height / 4);
+    legendContainer.attr('width', width).attr('height', height); // height / 4
 
     const legend = legendContainer.selectAll('g').data(categories).join('g');
 
@@ -154,7 +158,7 @@ export default function Treemap({ data, width, height }) {
   return (
     <div>
       <svg ref={svgRef} />
-      <svg ref={legendRef} />
+      <svg ref={legendRef} />   
     </div>
   );
 }
