@@ -44,8 +44,8 @@ function App() {
       />
       <p>and then open the console if you like.</p>
       
-      <div id='lblTreeKind' align='left'>All Tree Types displayed</div>
-      <div id='customContextmenuArea1' >          
+      <div id='lblTreeKind' align='left' style={{ visibility: 'hidden' }}>All Tree Types displayed</div>
+      <div id='customContextmenuArea1' style={{ visibility: 'hidden' }} >          
             <TheContextMenu                         
               targetId='customContextmenuArea1'
               options={['Conifer', 'Broadleaf', 'All']}
